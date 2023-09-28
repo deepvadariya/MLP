@@ -1,0 +1,141 @@
+Seaction : A
+
+1. Create a NumPy array using random function?
+
+import numpy as np
+
+arr = np.random.random(10)
+print(arr)
+
+--------------------------------------------------------------------------
+
+2. Print the average value in above NumPy array?
+
+import numpy as np
+
+arr = np.random.random(10)
+print(arr)
+
+avg = np.mean(arr)
+print(avg)
+
+--------------------------------------------------------------------------
+
+3. Create a pandas dataframe from the python dictionary.
+
+import pandas as pd
+
+# Create a dictionary with sample data
+data = {
+    'Name': ['John', 'Emily', 'Kate', 'Alex'],
+    'Age': [25, 32, 19, 42],
+    'City': ['New York', 'Chicago', 'Los Angeles', 'San Francisco']
+}
+
+# Create a DataFrame from the dictionary
+df = pd.DataFrame(data)
+
+# Print the DataFrame
+print(df)
+
+--------------------------------------------------------------------------
+
+4. Rename one column from the above dataframe.
+
+import pandas as pd
+
+# Create a dictionary with sample data
+data = {
+    'Name': ['John', 'Emily', 'Kate', 'Alex'],
+    'Age': [25, 32, 19, 42],
+    'City': ['New York', 'Chicago', 'Los Angeles', 'San Francisco']
+}
+
+# Create a DataFrame from the dictionary
+df = pd.DataFrame(data)
+
+# Rename the 'Age' column to 'Age in Years'
+df = df.rename(columns={'Age': 'Age in Years'})
+
+# Print the updated DataFrame
+print(df)
+
+--------------------------------------------------------------------------
+
+Seaction : A
+
+1. Load the fracture.csv data into pandas dataframe.
+
+import pandas as pd
+
+df = pd.read_csv('fracture.csv')
+print(df)
+
+--------------------------------------------------------------------------
+
+2. Add new column named “bmi” to store Body Mass Index for each record. Formula to calculate BMI is: weight_kg / (height_cm/100)^2
+
+# Calculate BMI and add a new 'bmi' column to the DataFrame
+df['bmi'] = df['Weight'] / (df['Height'] / 100) ** 2
+
+# Print the updated DataFrame
+print(df)
+
+--------------------------------------------------------------------------
+
+3. Split the data set in to test and train in 20:80 ratio.
+
+from sklearn.model_selection import train_test_split
+
+# Split the data into training and test sets
+train_df, test_df = train_test_split(df, test_size=0.2)
+
+# Print the number of rows in the training and test sets
+print('Training set size:', len(train_df))
+print('Test set size:', len(test_df))
+
+--------------------------------------------------------------------------
+
+4. Build a SVM model to predict the fracture considering age, sex,bmi and bmd.
+
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+
+# Split the data into training and test sets (assuming `df` has already been loaded and preprocessed)
+X_train, X_test, y_train, y_test = train_test_split(df[['Age', 'Sex', 'bmi', 'BMD']], df['Fracture'], test_size=0.2)
+
+# Create the SVM model and fit it to the training data
+svm_model = SVC(kernel='linear')
+svm_model.fit(X_train, y_train)
+
+# Use the model to make predictions on the test data and print the accuracy
+y_pred = svm_model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print('Accuracy:', accuracy)
+
+--------------------------------------------------------------------------
+
+5. Apply the model on to the test and train data. Plot the outcomes of prediction using appropriate graph.
+
+from sklearn.metrics import confusion_matrix, plot_roc_curve
+
+# Generate the confusion matrix for the test data
+confusion_matrix(y_test, y_pred)
+
+# Plot the ROC curve for the test data
+plot_roc_curve(svm_model, X_test, y_test)
+
+--------------------------------------------------------------------------
+
+6. Calculate accuracy of the model using confusion matix.
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+from sklearn.metrics import confusion_matrix
+
+# Generate the confusion matrix for the test data
+confusion_matrix(y_test, y_pred)
+
+# Calculate the accuracy of the model
+accuracy = (TN + TP) / (TN + TP + FN + FP)
+print("Accuracy:", accuracy)
